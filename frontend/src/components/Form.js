@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 
 export const Form = () => {
+  const {userId} = useContext(AuthContext);
+
   // To Store the value from Frontend
   const [title, setTitle] = useState("");
   const [task, setTask] = useState("");
@@ -12,6 +16,7 @@ export const Form = () => {
     const data = {
       Title: title,
       Task: task,
+      userId:userId,
     };
     const res = await axios.post("/createtodo", data);
     console.log(res);

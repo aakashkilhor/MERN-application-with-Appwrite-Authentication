@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import AuthContext from "../context/AuthContext";
+
 export const Todolist = () => {
   const [todoData, settodoData] = useState(null);
-
+  const {userId} = useContext(AuthContext);
   const fetchTodoData = async () => {
-    const resp = await axios.get("/gettodos");
+    const resp = await axios.post("/gettodos",{userId:userId});
     // console.log(resp);
     
     // if No todos are there please dont set the values

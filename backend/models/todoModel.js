@@ -9,9 +9,14 @@ const todoSchema = new mongoose.Schema({
   Task: [{
     type: String,
   }],
+  userId: {
+    type: String,
+    required: true,
+  },
 },
 {
-  timestamps:{ currentTime: ()=> Date.now().toString() },}
+  timestamps:{ currentTime: ()=> Date.now().toString() },},
+
 );
 
 module.exports = mongoose.model("Todo", todoSchema);

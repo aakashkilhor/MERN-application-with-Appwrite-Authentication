@@ -8,12 +8,16 @@ const {
   editTitle,
   deletetodo,
   deletetask,
+  login,
+  signup
 } = require("../controllers/todoControllers");
 const router = express.Router();
 
 router.get("/", home);
+router.post("/login",login)
+router.post("/signup",signup)
 router.post("/createtodo", createTodo);
-router.get("/gettodos", getTodos);
+router.post("/gettodos", getTodos);
 router.put("/addtask/:id",addtask);
 router.put("/deletetask/:id/:n",deletetask);
 router.put("/edittitle/:id", editTitle);
