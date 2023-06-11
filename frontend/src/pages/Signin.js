@@ -6,6 +6,7 @@ import {Container,Form,Button,FormGroup,Label,Col,Input,Row,Card,CardBody,CardFo
 import { useNavigate } from "react-router-dom";
 // import { UserContext } from "../context/UserContext";
 // import { Navigate } from "react-router-dom";
+import {BASE_URL} from './config/config'
 
 const Signin = () => {
   const { login, setUserId} = useContext(AuthContext);
@@ -18,7 +19,7 @@ const navigate = useNavigate();
   const handleSignIn =async () => {
     try {
         // Send a POST request to the server to log in with the provided credentials
-        const response = await axios.post('/login', {
+        const response = await axios.post(`{BASE_URL}/login`, {
           email,
           password
         });
