@@ -6,7 +6,7 @@ import {Container,Form,Button,FormGroup,Label,Col,Input,Row,Card,CardBody,CardFo
 import { useNavigate } from "react-router-dom";
 // import { UserContext } from "../context/UserContext";
 // import { Navigate } from "react-router-dom";
-import {BASE_URL} from './config/config'
+import {BASE_URL} from '../config/config'
 
 const Signin = () => {
   const { login, setUserId} = useContext(AuthContext);
