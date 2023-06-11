@@ -4,7 +4,7 @@ import AuthContext from './AuthContext';
 function AuthProvider(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn'));
   const [userId, setUserId] = useState(null);
-  const [refreshTodolist, setRefreshTodolist] = useState(false);
+  const [refreshTodolist, setRefreshTodolist] = useState(1);
 
   useEffect(() => {
     // Check if login state is stored in localStorage

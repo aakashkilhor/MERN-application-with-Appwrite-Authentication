@@ -1,119 +1,121 @@
 import React, { useState } from "react";
-import {Container,Form,Button,FormGroup,Label,Col,Input,Row,Card,CardBody,CardFooter,CardHeader} from "reactstrap";
-import axios from "axios"
+import {
+  Container,
+  Form,
+  Button,
+  FormGroup,
+  Label,
+  Col,
+  Input,
+  Row,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+} from "reactstrap";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useContext } from 'react';
-import AuthContext from '../context/AuthContext';
-import {BASE_URL} from '../config/config'
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
+import { BASE_URL } from "../config/config";
 
 const Signups = () => {
-  const { login, setUserId} = useContext(AuthContext);
+  const { login, setUserId } = useContext(AuthContext);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-  const handleSignUp = async() => {
+  const handleSignUp = async () => {
     try {
       // Send a POST request to the server to create a new user with the provided information
       const response = await axios.post(`${BASE_URL}/signup`, {
         name,
         email,
-        password
+        password,
       });
-      
-      if(response.status===200){
+
+      if (response.status === 200) {
         // response.data.userId = response.data.$id
-        setUserId(response.data.userId)
-        const receiveduserId = response.data.userId
-        localStorage.setItem('isLoggedIn', true);
-        localStorage.setItem('userId', receiveduserId);
+        setUserId(response.data.userId);
+        const receiveduserId = response.data.userId;
+        localStorage.setItem("isLoggedIn", true);
+        localStorage.setItem("userId", receiveduserId);
         login();
-       navigate("/");
-      }
-      
-       else {
+        navigate("/");
+      } else {
         // Display an error message
         response(response.message);
       }
     } catch (error) {
-        console.log(error);
-        }
+      console.log(error);
+    }
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     handleSignUp();
   };
 
   return (
-    <Container className="text-center">
-      <Row>
-        <Col lg={6} className="offset-lg-3 mt-5">
-          <Card>
-            <Form onSubmit={handleSubmit}>
-              <CardHeader className="">Signup here</CardHeader>
-              <CardBody>
-                <FormGroup row>
-                  <Label for="name" sm={3}>
-                    Name
-                  </Label>
-                  <Col sm={9}>
-                    <Input
-                      type="name"
-                      name="name"
-                      id="name"
-                      placeholder="provide your name"
-                      value={name}
-                      onChange={e => setName(e.target.value)}
-                    />
-                  </Col>
-                </FormGroup>
-                <FormGroup row>
-                  <Label for="email" sm={3}>
-                    Email
-                  </Label>
-                  <Col sm={9}>
-                    <Input
-                      type="email"
-                      name="email"
-                      id="email"
-                      placeholder="provide your email"
-                      value={email}
-                      onChange={e => setEmail(e.target.value)}
-                    />
-                  </Col>
-                </FormGroup>
-                <FormGroup row>
-                  <Label for="password" sm={3}>
-                    Password
-                  </Label>
-                  <Col sm={9}>
-                    <Input
-                      type="password"
-                      name="password"
-                      id="password"
-                      placeholder="your password here"
-                      value={password}
-                      onChange={e => setPassword(e.target.value)}
-                    />
-                  </Col>
-                </FormGroup>
-              </CardBody>
-              <CardFooter>
-                <Button type="submit" block color="primary">
-                  Sign Up
-                </Button>
-              </CardFooter>
-            </Form>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+    <div className="container">
+      <form onSubmit={handleSubmit}>
+        <h1>Signup here</h1>
+        <div className="innerbox">
+          <div>
+          <label for="name" >
+            Name
+          </label>
+          </div>
+          <div>
+            <input
+              type="name"
+              name="name"
+              id="name"
+              placeholder="provide your name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="innerbox">
+          <div>
+          <label for="email">
+            Email
+          </label>
+          </div>
+          <div>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="provide your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="innerbox">
+          <div>
+          <label for="password">
+            Password
+          </label>
+          </div>
+          <div>
+            <Input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="your password here"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+        </div>
+        <button className="button">Sign Up</button>
+      </form>
+    </div>
   );
 };
 
 export default Signups;
-
-
-

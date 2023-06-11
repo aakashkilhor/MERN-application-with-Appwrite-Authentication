@@ -2,10 +2,7 @@ import React, { useState} from "react";
 import { useContext } from 'react';
 import AuthContext from "../context/AuthContext";
 import axios from "axios"
-import {Container,Form,Button,FormGroup,Label,Col,Input,Row,Card,CardBody,CardFooter,CardHeader} from "reactstrap";
 import { useNavigate } from "react-router-dom";
-// import { UserContext } from "../context/UserContext";
-// import { Navigate } from "react-router-dom";
 import {BASE_URL} from '../config/config'
 
 const Signin = () => {
@@ -54,54 +51,53 @@ const navigate = useNavigate();
   };
 
   return (
-    <Container className="text-center">
-      <Row>
-        <Col lg={6} className="offset-lg-3 mt-5">
-          <Card>
-            <Form onSubmit={handleSubmit}>
-              <CardHeader className="">Signin here</CardHeader>
-              <CardBody>
-                <FormGroup row>
-                  <Label for="email" sm={3}>
+    <div className="container">
+      <div>
+          
+            <form onSubmit={handleSubmit}>
+              <h1>Sign In</h1>
+              
+              <div className="innerbox">
+                <div>
+                  <label for="email">
                     Email
-                  </Label>
-                  <Col sm={9}>
-                    <Input
+                  </label>
+                  </div>
+                  <div>
+                    <input
                       type="email"
                       name="email"
                       id="email"
-                      placeholder="provide your email"
+                      placeholder="Provide Your Email"
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                     />
-                  </Col>
-                </FormGroup>
-                <FormGroup row>
-                  <Label for="password" sm={3}>
+                  </div>
+              </div>
+              <div className="innerbox">
+                <div>
+                  <label for="password" >
                     Password
-                  </Label>
-                  <Col sm={9}>
-                    <Input
+                  </label>
+                  </div>
+                  <div>
+                    <input
                       type="password"
                       name="password"
                       id="password"
-                      placeholder="your password here"
+                      placeholder="Enter Your Password"
                       value={password}
                       onChange={e => setPassword(e.target.value)}
                     />
-                  </Col>
-                </FormGroup>
-              </CardBody>
-              <CardFooter>
-                <Button type="submit" block color="primary">
+                  </div>
+              </div>
+                <button className="button" >
                   Sign In
-                </Button>
-              </CardFooter>
-            </Form>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+                </button>
+            </form>
+          
+      </div>
+    </div>
   );
 };
 
