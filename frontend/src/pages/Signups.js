@@ -4,6 +4,7 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom";
 import { useContext } from 'react';
 import AuthContext from '../context/AuthContext';
+import {BASE_URL} from '../config/config'
 
 const Signups = () => {
   const { login, setUserId} = useContext(AuthContext);
@@ -15,7 +16,7 @@ const Signups = () => {
   const handleSignUp = async() => {
     try {
       // Send a POST request to the server to create a new user with the provided information
-      const response = await axios.post('/signup', {
+      const response = await axios.post(`${BASE_URL}/signup`, {
         name,
         email,
         password

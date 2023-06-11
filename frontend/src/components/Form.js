@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
+import {BASE_URL} from '../config/config'
 
 export const Form = () => {
   const {userId, handleTodoCreated } = useContext(AuthContext);
@@ -18,7 +19,7 @@ export const Form = () => {
       Task: task,
       userId:userId,
     };
-    const res = await axios.post("/createtodo", data);
+    const res = await axios.post(`${BASE_URL}/createtodo`, data);
     console.log(res);
   };
   // To handle the Default

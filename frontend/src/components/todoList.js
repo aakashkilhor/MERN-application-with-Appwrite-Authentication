@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import AuthContext from "../context/AuthContext";
+import {BASE_URL} from '../config/config'
 
 export const Todolist = () => {
   const [todoData, settodoData] = useState(null);
@@ -10,7 +11,7 @@ export const Todolist = () => {
   
   const fetchTodoData = async () => {
     const userId = localStorage.getItem('userId');
-    const resp = await axios.post("/gettodos", { userId: userId });
+    const resp = await axios.post(`${BASE_URL}/gettodos`, { userId: userId });
     setupdate(false);
     // if No todos are there please dont set the values
     if (resp.data.todos.length > 0) {
@@ -28,7 +29,7 @@ export const Todolist = () => {
     if (!title) {
       alert("Please Enter title");
     } else {
-      await axios.put(`/edittitle/${todo._id}`, {
+      await axios.put(`${BASE_URL}/edittitle/${todo._id}`, {
         Title: title,
       });
       setupdate(true);
@@ -38,20 +39,20 @@ export const Todolist = () => {
   // Add Task
   const handleAdd = async (todo) => {
     const task = prompt("Enter New Task");
-    await axios.put(`/addtask/${todo._id}`, { Task: task });
+    await axios.put(`${BASE_URL}/addtask/${todo._id}`, { Task: task });
     setupdate(true);
   };
 
   // DELETE
   const handleDelete = async (todoId) => {
-    await axios.delete(`/deletetodo/${todoId}`);
+    await axios.delete(`${BASE_URL}/deletetodo/${todoId}`);
     setupdate(true);
   };
 
   // Deletetask
   const taskDelete = async (todo) => {
     const tasknumber = prompt("Enter task number", "0");
-    await axios.put(`/deletetask/${todo._id}/${tasknumber}`);
+    await axios.put(`${BASE_URL}/deletetask/${todo._id}/${tasknumber}`);
     setupdate(true);
   };
 
