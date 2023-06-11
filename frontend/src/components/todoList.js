@@ -4,80 +4,113 @@ import AuthContext from "../context/AuthContext";
 
 export const Todolist = () => {
   const [todoData, settodoData] = useState(null);
-  const {userId} = useContext(AuthContext);
+  const [update, setupdate] = useState(false);
+
+  const { userId, refreshTodolist } = useContext(AuthContext);
+
   const fetchTodoData = async () => {
-    const resp = await axios.post("/gettodos",{userId:userId});
-    // console.log(resp);
-    
+    const resp = await axios.post("/gettodos", { userId: userId });
+    setupdate(false);
     // if No todos are there please dont set the values
     if (resp.data.todos.length > 0) {
       settodoData(resp.data.todos);
-    }};
+    }
+  };
 
-  useEffect(() => { fetchTodoData(); }, [todoData]);
+  useEffect(() => {
+    fetchTodoData();
+  }, [update, refreshTodolist]);
 
   // EDIT
   const handleEdit = async (todo) => {
     const title = prompt("New title name");
-
     if (!title) {
       alert("Please Enter title");
     } else {
       await axios.put(`/edittitle/${todo._id}`, {
         Title: title,
       });
-      // console.log(resp);
+      setupdate(true);
     }
   };
+
   // Add Task
   const handleAdd = async (todo) => {
     const task = prompt("Enter New Task");
-    await axios.put(`/addtask/${todo._id}`,{Task:task})
+    await axios.put(`/addtask/${todo._id}`, { Task: task });
+    setupdate(true);
+  };
 
-    // console.log(resp);
-  }
   // DELETE
   const handleDelete = async (todoId) => {
-  await axios.delete(`/deletetodo/${todoId}`);
+    await axios.delete(`/deletetodo/${todoId}`);
+    setupdate(true);
   };
-  // Deletetask
-  const taskDelete = async(todo) => {
-    const tasknumber = prompt("Enter task number","0");
-    await axios.put(`/deletetask/${todo._id}/${tasknumber}`)
-  }
 
-  
+  // Deletetask
+  const taskDelete = async (todo) => {
+    const tasknumber = prompt("Enter task number", "0");
+    await axios.put(`/deletetask/${todo._id}/${tasknumber}`);
+    setupdate(true);
+  };
+
   return (
-        <div>
-          <table className="table-auto w-full text-left whitespace-no-wrap">
-            <thead>
+    <div>
+      <table className="table-auto w-full text-left whitespace-no-wrap">
+        <thead>
+          <tr>
+            <th>Delete</th>
+            <th>Edit</th>
+            <th>Title</th>
+            <th>Task</th>
+            <th>No. of tasks</th>
+            <th>Add task</th>
+            <th>Delete task</th>
+            <th>Last Updated</th>
+          </tr>
+        </thead>
+        <tbody>
+          {todoData &&
+            todoData.map((todo) => (
               <tr>
-              <th>Delete</th>
-              <th>Edit</th>
-              <th>Title</th>
-              <th>Task</th>
-              <th>No. of tasks</th>
-              <th>Add task</th>
-              <th>Delete task</th>
-              <th>Last Updated</th>
+                <td>
+                  {" "}
+                  <button onClick={() => handleDelete(todo._id)}>
+                    {" "}
+                    Delete{" "}
+                  </button>{" "}
+                </td>
+                <td>
+                  {" "}
+                  <button onClick={() => handleEdit(todo)}> Edit </button>{" "}
+                </td>
+                <td className="px-4 py-3 ">{todo.Title}</td>
+                <td className="px-4 py-3 ">
+                  {todo.Task.map((subtask) => (
+                    <li>{subtask}</li>
+                  ))}
+                </td>
+
+                <td className="px-4 py-3">{todo.Task.length}</td>
+                <td>
+                  {" "}
+                  <button onClick={() => handleAdd(todo)}>
+                    {" "}
+                    Add task{" "}
+                  </button>{" "}
+                </td>
+                <td>
+                  {" "}
+                  <button onClick={() => taskDelete(todo)}>
+                    {" "}
+                    Task No.{" "}
+                  </button>{" "}
+                </td>
+                <td className="px-4 py-3 ">{todo.updatedAt}</td>
               </tr>
-            </thead>
-            <tbody>
-              {todoData && todoData.map((todo) => (
-                  <tr>
-                    <td> <button onClick={() => handleDelete(todo._id)} > Delete  </button> </td>
-                    <td> <button onClick={() => handleEdit(todo)} > Edit </button> </td>
-                    <td className="px-4 py-3 ">{todo.Title}</td>
-                    <td className="px-4 py-3 ">{todo.Task.map(subtask => (<li>{subtask}</li>))}</td>
-                    
-                    <td className="px-4 py-3">{todo.Task.length}</td>  
-                    <td> <button onClick={() => handleAdd(todo)}> Add task </button> </td>
-                    <td> <button onClick={() => taskDelete(todo)}> Task No. </button> </td>
-                    <td className="px-4 py-3 ">{todo.updatedAt}</td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
