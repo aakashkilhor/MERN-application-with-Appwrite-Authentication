@@ -6,9 +6,10 @@ export const Todolist = () => {
   const [todoData, settodoData] = useState(null);
   const [update, setupdate] = useState(false);
 
-  const { userId, refreshTodolist } = useContext(AuthContext);
-
+  const { refreshTodolist } = useContext(AuthContext);
+  
   const fetchTodoData = async () => {
+    const userId = localStorage.getItem('userId');
     const resp = await axios.post("/gettodos", { userId: userId });
     setupdate(false);
     // if No todos are there please dont set the values
