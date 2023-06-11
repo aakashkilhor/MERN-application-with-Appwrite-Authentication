@@ -31,7 +31,7 @@ exports.signup = async (req, res) => {
     console.log(promise);
     res.status(200).send(promise);
   } catch (error) {
-    res.status(error.code).send(error.response);
+    // res.status(error.code).send(error.response);
     console.log(error);
   }
 };

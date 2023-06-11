@@ -15,7 +15,7 @@ const Signups = () => {
   const handleSignUp = async() => {
     try {
       // Send a POST request to the server to create a new user with the provided information
-      const response = await axios.post('http://localhost:4000/signup', {
+      const response = await axios.post('/signup', {
         name,
         email,
         password
