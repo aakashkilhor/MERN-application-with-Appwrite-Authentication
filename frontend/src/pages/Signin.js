@@ -19,7 +19,7 @@ const navigate = useNavigate();
   const handleSignIn =async () => {
     try {
         // Send a POST request to the server to log in with the provided credentials
-        const response = await axios.post(`{BASE_URL}/login`, {
+        const response = await axios.post(`${BASE_URL}/login`, {
           email,
           password
         });
