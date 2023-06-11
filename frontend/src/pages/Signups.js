@@ -22,6 +22,7 @@ const Signups = () => {
       });
       
       if(response.status===200){
+        // response.data.userId = response.data.$id
         setUserId(response.data.userId)
         login();
        navigate("/");

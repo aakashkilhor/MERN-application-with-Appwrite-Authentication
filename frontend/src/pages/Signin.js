@@ -26,6 +26,7 @@ const navigate = useNavigate();
     
         // Check if the request was successful
         if (response.data.current === true) {
+          // response.data.userId = response.data.$id
           setUserId(response.data.userId);
           login();
           navigate("/");

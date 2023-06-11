@@ -5,7 +5,14 @@ const Todo = require("../models/todoModel");
 
 const client = new Client();
 
-client.setEndpoint("http://localhost/v1").setProject("642016d52afec2866e77");
+// client.setEndpoint("http://localhost/v1").setProject("642016d52afec2866e77");
+
+
+// const client = new Client();
+
+client
+    .setEndpoint('https://cloud.appwrite.io/v1')
+    .setProject('648545fbeac365d2efde');
 
 exports.home = (req, res) => {
   res.send("Hello  Alpha ");
