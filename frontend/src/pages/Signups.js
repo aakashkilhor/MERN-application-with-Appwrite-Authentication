@@ -24,6 +24,9 @@ const Signups = () => {
       if(response.status===200){
         // response.data.userId = response.data.$id
         setUserId(response.data.userId)
+        const receiveduserId = response.data.userId
+        localStorage.setItem('isLoggedIn', true);
+        localStorage.setItem('userId', receiveduserId);
         login();
        navigate("/");
       }

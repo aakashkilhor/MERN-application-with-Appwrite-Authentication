@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import AuthContext from '../context/AuthContext';
 
 const Header = () => {
-  const { isLoggedIn, login, logout } = useContext(AuthContext);
+  const { isLoggedIn, logout } = useContext(AuthContext);
 
   return (
     <Navbar color="primary" light expand="md">

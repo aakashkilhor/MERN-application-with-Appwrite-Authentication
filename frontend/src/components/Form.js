@@ -4,7 +4,7 @@ import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 
 export const Form = () => {
-  const {userId} = useContext(AuthContext);
+  const {userId, handleTodoCreated } = useContext(AuthContext);
 
   // To Store the value from Frontend
   const [title, setTitle] = useState("");
@@ -26,6 +26,7 @@ export const Form = () => {
     event.preventDefault();
     // To submit the Data
     submitData();
+    handleTodoCreated();
     // But Empty the previous Details
     setTitle("");
     setTask("");

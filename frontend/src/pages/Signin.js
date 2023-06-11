@@ -15,7 +15,7 @@ const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignUp =async () => {
+  const handleSignIn =async () => {
     try {
         // Send a POST request to the server to log in with the provided credentials
         const response = await axios.post('http://localhost:4000/login', {
@@ -26,9 +26,13 @@ const navigate = useNavigate();
     
         // Check if the request was successful
         if (response.data.current === true) {
+          const receiveduserId = response.data.userId;
           // response.data.userId = response.data.$id
           setUserId(response.data.userId);
           login();
+
+          localStorage.setItem('isLoggedIn', true);
+          localStorage.setItem('userId', receiveduserId);
           navigate("/");
 
           // Set the authentication token in local storage
@@ -45,7 +49,7 @@ const navigate = useNavigate();
 
   const handleSubmit = e => {
     e.preventDefault();
-    handleSignUp();
+    handleSignIn();
   };
 
   return (
