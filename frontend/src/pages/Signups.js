@@ -1,18 +1,4 @@
 import React, { useState } from "react";
-import {
-  Container,
-  Form,
-  Button,
-  FormGroup,
-  Label,
-  Col,
-  Input,
-  Row,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-} from "reactstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
@@ -102,7 +88,7 @@ const Signups = () => {
           </label>
           </div>
           <div>
-            <Input
+            <input
               type="password"
               name="password"
               id="password"
